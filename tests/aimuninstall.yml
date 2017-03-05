@@ -1,0 +1,9 @@
+---
+- hosts: all 
+
+  roles:
+    - role: cyberark_aimprovider
+      api_base_url: "https://components.cyberark.local"
+      use_shared_logon_authentication: true
+      state: "absent"
+      validate_certs: false

@@ -1,0 +1,17 @@
+
+---
+
+    - name: Validating Role Parameters
+      assert:
+        that:
+          - api_base_url != ''
+          - state in ["present", "absent"]
+          - (not use_shared_logon_authentication|default(false) and password_object is defined) or 
+            (use_shared_logon_authentication|default(false) and password_object is not defined)
+      
+      
+    - include: installAIMProvider.yml
+      when: state == "present"
+
+    - include: uninstallAIMProvider.yml
+      when: state == "absent"

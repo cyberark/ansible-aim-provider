@@ -1,0 +1,10 @@
+---
+- hosts: all 
+
+  roles:
+    - role: cyberark_aimprovider
+      api_base_url: "https://components.cyberark.local"
+      validate_certs: false
+      zip_file_name: "/tmp/binaries/RHELinux x64-Rls-v9.8.zip"
+      vault_address: "10.0.1.10"
+      use_shared_logon_authentication: true

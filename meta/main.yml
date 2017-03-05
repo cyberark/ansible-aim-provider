@@ -1,0 +1,18 @@
+galaxy_info:
+  author: Edward Nunez
+  description: your description
+  company: CyberArk
+
+  license: MIT
+
+  min_ansible_version: 2.2
+
+
+  galaxy_tags: 
+  - identity
+  - password
+  - privileged
+  - vault
+  - cyberark
+
+dependencies: []
