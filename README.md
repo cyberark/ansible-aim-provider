@@ -10,7 +10,7 @@ Any pre-requisites that may not be covered by Ansible itself or the role should 
 
 Role Variables
 --------------
-
+```
 # CyberArk's Privileged Account Security Web Services SDK api base URL
 rest_api_url: ""
 
@@ -34,7 +34,7 @@ use_shared_logon_authentication: false
 
 # State
 state: "present"
-
+```
 
 Dependencies
 ------------
