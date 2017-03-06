@@ -61,7 +61,7 @@ ln -s /etc/ansible/roles/enunez-cyberark.cyberark_aimprovider cyberark_aimprovid
 
   roles:
 
-    #- role: cyberark_modules # Include cyberark_modules if needed
+    - role: cyberark_modules # Include cyberark_modules if needed
 
     - role: cyberark_aimprovider
       api_base_url: "https://components.cyberark.local"
@@ -78,7 +78,7 @@ ln -s /etc/ansible/roles/enunez-cyberark.cyberark_aimprovider cyberark_aimprovid
 
   roles:
 
-    #- role: cyberark_modules # Include cyberark_modules if needed
+    - role: cyberark_modules # Include cyberark_modules if needed
 
     - role: cyberark_aimprovider
       api_base_url: "https://components.cyberark.local"
