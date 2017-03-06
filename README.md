@@ -51,7 +51,6 @@ Example Playbook
 ```
 ln -s /etc/ansible/roles/enunez-cyberark.cyberark_aimprovider cyberark_aimprovider
 ```
-- If using cyberark_modules, make sure to uncomment the lines in the provide test/example playbooks
 
 1) Install CyberArk AIM Provider.
 
