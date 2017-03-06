@@ -7,6 +7,7 @@ Requirements
 ------------
 
 - CyberArk Privileged Account Security Web Services SDK.
+- If modules not accesible from Ansible core, please use enunez-cyberark.cyberark_modules from galaxy.
 
 Role Variables
 --------------
