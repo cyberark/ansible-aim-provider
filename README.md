@@ -1,12 +1,12 @@
 cyberark_aimprovider
 ====================
 
-Role to install/uninstall CyberArk's AIM Credential Provider
+Role to install/uninstall CyberArk's AIM Credential Provider.
 
 Requirements
 ------------
 
-- CyberArk Privileged Account Security Web Services SDK
+- CyberArk Privileged Account Security Web Services SDK.
 
 Role Variables
 --------------
@@ -39,13 +39,13 @@ state: "present"
 Dependencies
 ------------
 
-None
+None.
 
 
 Example Playbook
 ----------------
 
-1) Install CyberArk AIM Provider
+1) Install CyberArk AIM Provider.
 
 ```
 ---
@@ -58,10 +58,9 @@ Example Playbook
       zip_file_name: "/tmp/binaries/RHELinux x64-Rls-v9.8.zip"
       vault_address: "10.0.1.10"
       use_shared_logon_authentication: true
-
 ```
 
-2) Uninstall CyberArk AIM Provider
+2) Uninstall CyberArk AIM Provider.
 ```
 ---
 - hosts: all 
