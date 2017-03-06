@@ -46,18 +46,23 @@ None.
 Example Playbook
 ----------------
 
-**Note**: As the role will include the galaxy user, you can create a symbolic link as follows:
+**Note**: 
+- As the role will include the galaxy user, you can create a symbolic link as follows:
 ```
 ln -s /etc/ansible/roles/enunez-cyberark.cyberark_aimprovider cyberark_aimprovider
 ```
+- If using cyberark_modules, make sure to uncomment the lines in the provide test/example playbooks
 
 1) Install CyberArk AIM Provider.
 
 ```
 ---
-- hosts: all 
+- hosts: all
 
   roles:
+
+    #- role: cyberark_modules # Include cyberark_modules if needed
+
     - role: cyberark_aimprovider
       api_base_url: "https://components.cyberark.local"
       validate_certs: false
@@ -69,9 +74,12 @@ ln -s /etc/ansible/roles/enunez-cyberark.cyberark_aimprovider cyberark_aimprovid
 2) Uninstall CyberArk AIM Provider.
 ```
 ---
-- hosts: all 
+- hosts: all
 
   roles:
+
+    #- role: cyberark_modules # Include cyberark_modules if needed
+
     - role: cyberark_aimprovider
       api_base_url: "https://components.cyberark.local"
       use_shared_logon_authentication: true
