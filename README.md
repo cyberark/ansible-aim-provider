@@ -46,6 +46,11 @@ None.
 Example Playbook
 ----------------
 
+**Note**: As the role will include the galaxy user, you can create a symbolic link as follows:
+```
+ln -s /etc/ansible/roles/enunez-cyberark.cyberark_aimprovider cyberark_aimprovider
+```
+
 1) Install CyberArk AIM Provider.
 
 ```
