@@ -1,0 +1,23 @@
+---
+- hosts: all 
+
+  vars:
+  - SSHPasswordObject: "{{lookup('cyberarkpassword', AppID='app_ansible', Query='safe=Linux Root Accounts;UserName=root;Address=' + inventory_hostname, Output='Password,PassProps.UserName,PassProps.Address', Reason='Ansible retrieving credential for SSH Access')}}"
+  - ansible_ssh_pass: "{{SSHPasswordObject.password}}"
+
+  pre_tasks:
+    
+    - set_fact: 
+        ansible_ssh_pass: "{{SSHPasswordObject.password}}"
+
+  roles:
+
+    - role: cyberark_modules # Include cyberark_modules if needed
+
+    - role: cyberark_aimprovider
+      api_base_url: "https://components.cyberark.local"
+      validate_certs: false
+      zip_file_name: "/tmp/binaries/RHELinux x64-Rls-v9.8.zip"
+      vault_address: "10.0.1.10"
+      use_shared_logon_authentication: true
+      app_provider_user_group: "AppProviders"

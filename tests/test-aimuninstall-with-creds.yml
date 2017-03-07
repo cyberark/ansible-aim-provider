@@ -1,0 +1,21 @@
+---
+- hosts: all 
+
+  vars:
+  - SSHPasswordObject: "{{lookup('cyberarkpassword', AppID='app_ansible', Query='safe=Linux Root Accounts;UserName=root;Address=' + inventory_hostname, Output='Password,PassProps.UserName,PassProps.Address', Reason='Ansible retrieving credential for SSH Access')}}"
+  - ansible_ssh_pass: "{{SSHPasswordObject.password}}"
+
+  pre_tasks:
+    
+    - set_fact: 
+        ansible_ssh_pass: "{{SSHPasswordObject.password}}"
+
+  roles:
+
+    - role: cyberark_modules # Include cyberark_modules if needed
+
+    - role: cyberark_aimprovider
+      api_base_url: "https://components.cyberark.local"
+      use_shared_logon_authentication: true
+      state: absent
+      validate_certs: false
