@@ -39,7 +39,7 @@ state: "present"
 
 
 Additionally:
-- **app_provider_user_group**: The name of the group the user will be added to, this parameter is required when state is 'addtogroup' otherwise ignored.
+- **app_provider_user_group**: The name of the group the AIM credential provider user will be added to.
 
 Dependencies
 ------------
