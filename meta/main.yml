@@ -25,6 +25,7 @@ galaxy_info:
     - 6
     - 7
   - name: Windows
+    versions:
     - 2012R2
   
   galaxy_tags: 
