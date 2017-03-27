@@ -8,45 +8,37 @@ galaxy_info:
   min_ansible_version: 2.2
 
   platforms:
-  - name: OpenBSD
+  - name: SUSE-Intel
     versions:
-    - all
-  - name: Fedora
+    - 10
+	- 11
+	- 12
+  - name: RedHat Linux
     versions:
-    - all
-  - name: MacOSX
+    - 4
+	- 5
+	- 6
+	- 7
+  - name: CentOS
     versions:
-    - all
-  - name: GenericBSD
+    - 4
+	- 5
+	- 6
+	- 7
+  - name: Oracle Linux
     versions:
-    - all
-  - name: GenericLinux
-    versions:
-    - all
-  - name: Ubuntu
-    versions:
-    - all
-  - name: Debian
-    versions:
-    - all
-  - name: EL
-    versions:
-    - all
-  - name: opensuse
-    versions:
-    - all
-  - name: SLES
-    versions:
-    - all
-  - name: Solaris
-    versions:
-    - all
-
+    - 6
+	- 7
+  - name: Windows 2012 
+  - name: Windows 2008
+  
   galaxy_tags: 
   - identity
   - password
   - privileged
   - vault
   - cyberark
+  - security
+  - credentials
 
 dependencies: []

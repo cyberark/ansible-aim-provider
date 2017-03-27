@@ -1,5 +1,7 @@
 ---
 
+# Default values for possible input parameters
+
 # CyberArk's Privileged Account Security Web Services SDK api base URL
 rest_api_url: ""
 
@@ -21,5 +23,5 @@ vault_address: ""
 # Whether to use shared logon authentication
 use_shared_logon_authentication: false
 
-# State
+# State - the state of the provider: present mean installing the provide and Absent means uninstalling
 state: "present"
