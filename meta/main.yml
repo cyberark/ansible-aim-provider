@@ -11,24 +11,24 @@ galaxy_info:
   - name: SUSE-Intel
     versions:
     - 10
-	- 11
-	- 12
+    - 11
+    - 12
   - name: RedHat Linux
     versions:
     - 4
-	- 5
-	- 6
-	- 7
+    - 5
+    - 6
+    - 7
   - name: CentOS
     versions:
     - 4
-	- 5
-	- 6
-	- 7
+    - 5
+    - 6
+    - 7
   - name: Oracle Linux
     versions:
     - 6
-	- 7
+    - 7
   - name: Windows 2012 
   - name: Windows 2008
   
