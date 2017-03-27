@@ -18,12 +18,6 @@ galaxy_info:
     - 5
     - 6
     - 7
-  - name: CentOS
-    versions:
-    - 4
-    - 5
-    - 6
-    - 7
   - name: Windows
     versions:
     - 2012R2
