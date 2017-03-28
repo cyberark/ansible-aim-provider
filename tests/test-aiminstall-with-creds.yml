@@ -12,9 +12,9 @@
 
   roles:
 
-    - role: cyberark_modules # Include cyberark_modules if needed
+    - role: cyberark-bizdev.modules
 
-    - role: cyberark_aimprovider
+    - role: cyberark-bizdev.aimprovider
       api_base_url: "https://components.cyberark.local"
       validate_certs: false
       zip_file_name: "/tmp/binaries/RHELinux x64-Rls-v9.8.zip"

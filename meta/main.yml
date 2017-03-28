@@ -31,4 +31,6 @@ galaxy_info:
   - security
   - credentials
 
-dependencies: []
+dependencies:
+  - cyberark-bizdev.modules
+  - cyberark-bizdev.password_lookup_plugin
