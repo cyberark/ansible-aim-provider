@@ -14,7 +14,7 @@
             (use_shared_logon_authentication|default(false) and password_object is not defined)
 
 
-    - debug: msg="Installation params\: zip_file_name = {{zip_file_name}}  folder_name={{folder_name}}"
+    - debug: msg="Installation params => zip_file_name = {{zip_file_name}}  folder_name={{folder_name}}"
 
     - block:
 
