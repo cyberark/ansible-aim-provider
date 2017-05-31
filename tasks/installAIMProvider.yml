@@ -79,7 +79,7 @@
           username: "{{ password_object.password }}"
           password: "{{ password_object.passprops.username }}"
           use_shared_logon_authentication: false
-          validate_certs: "{{ validate_certs }} "
+          validate_certs: "{{ validate_certs }}"
         when: (command_result.rc != 0 and not use_shared_logon_authentication|default(false))
 
       - name: Debug message
