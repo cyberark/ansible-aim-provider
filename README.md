@@ -7,7 +7,6 @@ Requirements
 ------------
 
 - CyberArk Privileged Account Security Web Services SDK.
-- If modules not accesible from Ansible core, please use enunez-cyberark.cyberark_modules from galaxy.
 
 Role Variables
 --------------
@@ -50,10 +49,10 @@ None.
 Example Playbook
 ----------------
 
-**Note**: 
+**Note**:
 - As the role will include the galaxy user, you can create a symbolic link as follows:
 ```
-ln -s /etc/ansible/roles/enunez-cyberark.cyberark_aimprovider cyberark_aimprovider
+ln -s /etc/ansible/roles/cyberark-bizdev.cyberark_aimprovider cyberark_aimprovider
 ```
 
 1) Install CyberArk AIM Provider.

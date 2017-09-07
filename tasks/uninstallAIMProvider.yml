@@ -20,12 +20,13 @@
           password: "{{ password_object.passprops.username }}"
           use_shared_logon_authentication: false
           validate_certs: "{{ validate_certs }}"
+        changed_when: false
         when: (not use_shared_logon_authentication)
 
-      - name: Debug message
-        debug:
-          msg: "{{ cyberark_session }}"
-        when: (cyberark_session.token is defined)
+      # name: Debug message
+      #  debug:
+      #    msg: "{{ cyberark_session }}"
+      #  when: (cyberark_session.token is defined)
 
       - name: Remove Provider User
         cyberark_user:
@@ -36,14 +37,15 @@
         ignore_errors: yes
         when: (cyberark_session.token is defined)
 
-      - debug:
-          msg: "USERDETAILS => {{cyberarkaction}}"
-        when: (cyberarkaction.status_code == 200)
+      # debug:
+      #    msg: "USERDETAILS => {{cyberarkaction}}"
+      #  when: (cyberarkaction.status_code == 200)
 
       - name: Logoff from CyberArk Vault
         cyberark_authentication:
           state: absent
           cyberark_session: "{{ cyberark_session }}"
+        changed_when: false
         when: (cyberark_session.token is defined)
 
       - name: Remove /etc/opt/CARKaim

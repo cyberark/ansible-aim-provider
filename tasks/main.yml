@@ -6,12 +6,21 @@
         that:
           - api_base_url != ''
           - state in ["present", "absent"]
-          - (not use_shared_logon_authentication|default(false) and password_object is defined) or 
+          - (not use_shared_logon_authentication|default(false) and password_object is defined) or
             (use_shared_logon_authentication|default(false) and password_object is not defined)
-      
-      
+
+    - name: Verify status of aimprv service initially
+      command: service aimprv status
+      register: service_already_running
+      ignore_errors: yes
+      changed_when: false
+      args:
+        warn: false
+
+    - debug: msg="status of service RC={{service_already_running.rc}}"
+
     - include: installAIMProvider.yml
-      when: state == "present"
+      when: (state == "present" and service_already_running.rc != 0)
 
     - include: uninstallAIMProvider.yml
-      when: state == "absent"
+      when: (state == "absent" and service_already_running.rc == 0)

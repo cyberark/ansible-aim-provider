@@ -52,25 +52,26 @@
           patterns: "CARKaim-*.rpm"
         register: aimrpm
 
-      - debug: msg="{{aimrpm.files[0].path}}"
+      # debug: msg="{{aimrpm.files[0].path}}"
 
       - name: Install Provider
         package: name='{{aimrpm.files[0].path}}' state=present
 
-      - name: Verify status of service
+      - name: Verify status of service after installing Provider
         command: service aimprv status
         register: command_result
         ignore_errors: yes
         args:
           warn: false
 
-      - debug: msg="status of service RC={{command_result.rc}}"
+      # debug: msg="status of service RC={{command_result.rc}}"
 
       - name: Logon to CyberArk Vault using PAS Web Services SDK - use_shared_logon_authentication
         cyberark_authentication:
           api_base_url: "{{ api_base_url }}"
           use_shared_logon_authentication: true
           validate_certs: "{{ validate_certs }}"
+        changed_when: false
         when: (command_result.rc != 0 and use_shared_logon_authentication|default(false))
 
       - name: Logon to CyberArk Vault using PAS Web Services SDK - Not use_shared_logon_authentication
@@ -80,12 +81,13 @@
           password: "{{ password_object.passprops.username }}"
           use_shared_logon_authentication: false
           validate_certs: "{{ validate_certs }} "
+        changed_when: false
         when: (command_result.rc != 0 and not use_shared_logon_authentication|default(false))
 
-      - name: Debug message
-        debug:
-          msg: "{{ cyberark_session.token }}"
-        when: (command_result.rc != 0)
+      # name: Debug message
+      #  debug:
+      #    msg: "{{ cyberark_session.token }}"
+      #  when: (command_result.rc != 0)
 
       - name: Create provider user
         cyberark_user:
@@ -100,9 +102,9 @@
         register: cyberarkaction
         when: (command_result.rc != 0)
 
-      - debug:
-          msg: "USERCREATED => {{cyberarkaction}}"
-        when: (command_result.rc != 0 and cyberarkaction.status_code == 201)
+      # debug:
+      #    msg: "USERCREATED => {{cyberarkaction}}"
+      #  when: (command_result.rc != 0 and cyberarkaction.status_code == 201)
 
       - name: Reset provider user credential
         cyberark_user:
@@ -118,6 +120,7 @@
         cyberark_authentication:
           state: absent
           cyberark_session: "{{ cyberark_session }}"
+        changed_when: false
         when: (command_result.rc != 0)
 
       - name: Create Provider Initial Cred File
