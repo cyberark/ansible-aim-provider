@@ -46,9 +46,15 @@
           cyberark_session: "{{ cyberark_session }}"
         when: (cyberark_session.token is defined)
 
-      - file: path='/etc/opt/CARKaim' state=absent
+      - name: Remove /etc/opt/CARKaim
+        file:
+          path: '/etc/opt/CARKaim'
+          state: absent
 
-      - file: path='/var/opt/CARKaim' state=absent
+      - name: Remove /var/opt/CARKaim
+        file:
+          path: '/var/opt/CARKaim'
+          state: absent
 
       rescue:
 
