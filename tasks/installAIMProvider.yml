@@ -52,25 +52,26 @@
           patterns: "CARKaim-*.rpm"
         register: aimrpm
 
-      - debug: msg="{{aimrpm.files[0].path}}"
+      # debug: msg="{{aimrpm.files[0].path}}"
 
       - name: Install Provider
         package: name='{{aimrpm.files[0].path}}' state=present
 
-      - name: Verify status of service
+      - name: Verify status of service after installing Provider
         command: service aimprv status
         register: command_result
         ignore_errors: yes
         args:
           warn: false
 
-      - debug: msg="status of service RC={{command_result.rc}}"
+      # debug: msg="status of service RC={{command_result.rc}}"
 
       - name: Logon to CyberArk Vault using PAS Web Services SDK - use_shared_logon_authentication
         cyberark_authentication:
           api_base_url: "{{ api_base_url }}"
           use_shared_logon_authentication: true
           validate_certs: "{{ validate_certs }}"
+        changed_when: false
         when: (command_result.rc != 0 and use_shared_logon_authentication|default(false))
 
       - name: Logon to CyberArk Vault using PAS Web Services SDK - Not use_shared_logon_authentication
@@ -80,25 +81,14 @@
           password: "{{ password_object.passprops.username }}"
           use_shared_logon_authentication: false
           validate_certs: "{{ validate_certs }}"
+          validate_certs: "{{ validate_certs }} "
+        changed_when: false
         when: (command_result.rc != 0 and not use_shared_logon_authentication|default(false))
 
-      - name: Debug message
-        debug:
-          msg: "{{ cyberark_session.token }}"
-        when: (command_result.rc != 0)
-
-      - name: Get Users Details
-        cyberark_user:
-          username: "Prov_{{ansible_hostname}}"
-          state: details
-          cyberark_session: "{{ cyberark_session }}"
-        register: cyberarkaction
-        ignore_errors: yes
-        when: (command_result.rc != 0)
-
-      - debug:
-          msg: "USERDETAILS => {{cyberarkaction.cyberark_user}}"
-        when: (command_result.rc != 0 and cyberarkaction.status_code == 200)
+      # name: Debug message
+      #  debug:
+      #    msg: "{{ cyberark_session.token }}"
+      #  when: (command_result.rc != 0)
 
       - name: Create provider user
         cyberark_user:
@@ -106,30 +96,23 @@
           initial_password: "Cyberark1"
           user_type_name: "AppProvider"
           location: "{{ app_provider_user_location }}"
+          group_name: "{{ app_provider_user_group }}"
           change_password_on_the_next_logon: false
           state: present
           cyberark_session: "{{ cyberark_session }}"
         register: cyberarkaction
-        when: (command_result.rc != 0 and cyberarkaction.status_code == 404)
+        when: (command_result.rc != 0)
 
-      - debug:
-          msg: "USERCREATED => {{cyberarkaction}}"
-        when: (command_result.rc != 0 and cyberarkaction.status_code == 201)
-
-      - name: Add User to Group
-        cyberark_user:
-          username: "Prov_{{ ansible_hostname }}"
-          group_name: "{{ app_provider_user_group }}"
-          state: addtogroup
-          cyberark_session: "{{ cyberark_session }}"
-        when: (command_result.rc != 0 and cyberarkaction.status_code == 201 and app_provider_user_group is defined)
+      # debug:
+      #    msg: "USERCREATED => {{cyberarkaction}}"
+      #  when: (command_result.rc != 0 and cyberarkaction.status_code == 201)
 
       - name: Reset provider user credential
         cyberark_user:
           username: "Prov_{{ ansible_hostname }}"
           new_password: "Cyberark1"
           disabled: false
-          state: update
+          state: present
           cyberark_session: "{{ cyberark_session }}"
         register: cyberarkaction
         when: (command_result.rc != 0 and cyberarkaction.status_code == 200)
@@ -138,6 +121,7 @@
         cyberark_authentication:
           state: absent
           cyberark_session: "{{ cyberark_session }}"
+        changed_when: false
         when: (command_result.rc != 0)
 
       - name: Create Provider Initial Cred File
@@ -151,14 +135,22 @@
         service: name=aimprv state=started
         when: (command_result.rc != 0)
 
-      - file: path='/tmp/{{folder_name}}' state=absent
+      - name: Remove /tmp/{{folder_name}}
+        file:
+          path: '/tmp/{{folder_name}}'
+          state: absent
 
-      - file: path='/var/tmp/aimparms' state=absent
+      - name: Remove /var/tmp/aimparms
+        file:
+          path: '/var/tmp/aimparms'
+          state: absent
 
       rescue:
 
-        - file: path='/tmp/{{folder_name}}' state=absent
+        - name: Remove /tmp/{{folder_name}}
+          file:
+            path: '/tmp/{{folder_name}}'
+            state: absent
 
         - fail:
             msg: "AIM Credential Provider Installation failed!"
-

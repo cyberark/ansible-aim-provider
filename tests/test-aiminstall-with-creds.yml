@@ -1,14 +1,14 @@
 ---
-- hosts: all 
+- hosts: all
 
   vars:
-  - SSHPasswordObject: "{{lookup('cyberarkpassword', AppID='app_ansible', Query='safe=Linux Root Accounts;UserName=root;Address=' + inventory_hostname, Output='Password,PassProps.UserName,PassProps.Address', Reason='Ansible retrieving credential for SSH Access')}}"
-  - ansible_ssh_pass: "{{SSHPasswordObject.password}}"
+  - SSHPasswordObject: '{{lookup("cyberarkpassword", {"appid": "app_ansible", "query": "safe=Linux Root Accounts;UserName=root;Address=" + inventory_hostname, "output": "Password,PassProps.UserName,PassProps.Address", "reason": "Ansible retrieving credential for SSH Access"}) }}'
+  - ansible_ssh_pass: "{{SSHPasswordObject[0].password}}"
 
   pre_tasks:
-    
-    - set_fact: 
-        ansible_ssh_pass: "{{SSHPasswordObject.password}}"
+
+    - set_fact:
+        ansible_ssh_pass: "{{SSHPasswordObject[0].password}}"
 
   roles:
 

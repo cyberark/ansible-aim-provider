@@ -5,7 +5,7 @@
 
       - name: Uninstall Provider
         package: name='CARKaim' state=absent
-              
+
       - name: Logon to CyberArk Vault using PAS Web Services SDK - use_shared_logon_authentication
         cyberark_authentication:
           api_base_url: "{{ api_base_url }}"
@@ -20,43 +20,45 @@
           password: "{{ password_object.passprops.username }}"
           use_shared_logon_authentication: false
           validate_certs: "{{ validate_certs }}"
+        changed_when: false
         when: (not use_shared_logon_authentication)
-        
-      - name: Debug message
-        debug: 
-          msg: "{{ cyberark_session }}"        
-        when: (cyberark_session.token is defined)
-        
+
+      # name: Debug message
+      #  debug:
+      #    msg: "{{ cyberark_session }}"
+      #  when: (cyberark_session.token is defined)
+
       - name: Remove Provider User
-        cyberark_user: 
-          username: "Prov_{{ansible_hostname}}" 
-          state: absent 
+        cyberark_user:
+          username: "Prov_{{ansible_hostname}}"
+          state: absent
           cyberark_session: "{{ cyberark_session }}"
         register: cyberarkaction
         ignore_errors: yes
         when: (cyberark_session.token is defined)
-      
-      - debug: 
-          msg: "USERDETAILS => {{cyberarkaction.cyberark_user}}"
-        when: (cyberarkaction.status_code == 200)
+
+      # debug:
+      #    msg: "USERDETAILS => {{cyberarkaction}}"
+      #  when: (cyberarkaction.status_code == 200)
 
       - name: Logoff from CyberArk Vault
         cyberark_authentication:
           state: absent
           cyberark_session: "{{ cyberark_session }}"
+        changed_when: false
         when: (cyberark_session.token is defined)
-                 
-      - file: path='/etc/opt/CARKaim' state=absent
-      
-      - file: path='/var/opt/CARKaim' state=absent
-       
+
+      - name: Remove /etc/opt/CARKaim
+        file:
+          path: '/etc/opt/CARKaim'
+          state: absent
+
+      - name: Remove /var/opt/CARKaim
+        file:
+          path: '/var/opt/CARKaim'
+          state: absent
+
       rescue:
-      
+
         - fail:
             msg: "AIM Credential Provider Uninstall failed!"
-       
-   
-     
-
-
-
