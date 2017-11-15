@@ -19,8 +19,8 @@
 
     - debug: msg="status of service RC={{service_already_running.rc}}"
 
-    - include: installAIMProvider.yml
+    - import_tasks: installAIMProvider.yml
       when: (state == "present" and service_already_running.rc != 0)
 
-    - include: uninstallAIMProvider.yml
+    - import_tasks: uninstallAIMProvider.yml
       when: (state == "absent" and service_already_running.rc == 0)
