@@ -27,6 +27,3 @@ galaxy_info:
   - cyberark
   - security
   - credentials
-
-dependencies:
-  - cyberark.pas
