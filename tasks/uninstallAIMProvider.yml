@@ -7,18 +7,17 @@
         package: name='CARKaim' state=absent
 
       - name: Logon to CyberArk Vault using PAS Web Services SDK - use_shared_logon_authentication
-        cyberark_authentication:
+        cyberark.pas.cyberark_authentication:
           api_base_url: "{{ api_base_url }}"
           use_shared_logon_authentication: true
           validate_certs: "{{ validate_certs }}"
         when: (use_shared_logon_authentication)
 
       - name: Logon to CyberArk Vault using PAS Web Services SDK - Not use_shared_logon_authentication
-        cyberark_authentication:
+        cyberark.pas.cyberark_authentication:
           api_base_url: "{{ api_base_url }}"
           username: "{{ password_object.password }}"
           password: "{{ password_object.passprops.username }}"
-          use_shared_logon_authentication: false
           validate_certs: "{{ validate_certs }}"
         changed_when: false
         when: (not use_shared_logon_authentication)
@@ -29,7 +28,7 @@
       #  when: (cyberark_session.token is defined)
 
       - name: Remove Provider User
-        cyberark_user:
+        cyberark.pas.cyberark_user:
           username: "Prov_{{ansible_hostname}}"
           state: absent
           cyberark_session: "{{ cyberark_session }}"
@@ -42,7 +41,7 @@
       #  when: (cyberarkaction.status_code == 200)
 
       - name: Logoff from CyberArk Vault
-        cyberark_authentication:
+        cyberark.pas.cyberark_authentication:
           state: absent
           cyberark_session: "{{ cyberark_session }}"
         changed_when: false
