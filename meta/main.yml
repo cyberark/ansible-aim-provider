@@ -1,6 +1,6 @@
 galaxy_info:
   author: Edward Nunez
-  description: CyberArk AIM Credential Provider Installation Role.
+  description: CyberArk Credential Provider Installation Role for Linux
   company: CyberArk
 
   license: MIT
@@ -18,9 +18,6 @@ galaxy_info:
     - 5
     - 6
     - 7
-  - name: Windows
-    versions:
-    - 2012R2
   
   galaxy_tags: 
   - identity
@@ -32,5 +29,4 @@ galaxy_info:
   - credentials
 
 dependencies:
-  - cyberark-bizdev.modules
-  - cyberark-bizdev.password_lookup_plugin
+  - cyberark.pas
