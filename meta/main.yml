@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: aimprovider
   author: Edward Nunez
   description: CyberArk Credential Provider Installation Role for Linux
   company: CyberArk
