@@ -1,6 +1,8 @@
 cyberark_aimprovider
 ====================
 
+**THIS IS NOW A PART OF THE `cyberark.pas` COLLECTION AT https://galaxy.ansible.com/cyberark/pas**
+
 Role to install/uninstall CyberArk's AIM Credential Provider.
 
 Requirements
